@@ -34,7 +34,7 @@ class Drinks:
     #Menubar logo image
     logo_image1 = Image.open("Images\logo.png")
     logo_image = ImageTk.PhotoImage(logo_image1)
-    menu_bar_logo = Label(self.root, image = logo_image, cursor = "hand2")
+    menu_bar_logo = Button(self.root, image = logo_image, cursor = "hand2", borderwidth= 0, command = lambda: self.change_page("home"))
     menu_bar_logo.image = logo_image
     menu_bar_logo.place(x = 0, y = 0)
 
@@ -53,7 +53,7 @@ class Drinks:
     #Shopping Cart Button at the bottom of menu bar
     checkout_image = Image.open("Images\checkout.png")
     checkout_photo = ImageTk.PhotoImage(checkout_image)
-    menu_bar_checkout = Button(self.root, image = checkout_photo, bg = "white", cursor = "hand2", command = lambda: self.change_page("checkout"))
+    menu_bar_checkout = Button(self.root, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
     menu_bar_checkout.image = checkout_photo
     menu_bar_checkout.place(x = 20, y = 520)
 
@@ -64,6 +64,7 @@ class Drinks:
     home_page_title = Label(self.root, text = "Drinks", font = (global_font, 20))
     home_page_title.place(x = 400, y = 20)
 
+#Navitating around the different pages of the program
   def change_page(self, page):
     win = Toplevel()
     if page == 'home':
@@ -73,17 +74,16 @@ class Drinks:
     elif page == 'sides':
       sides.Sides(win)
     elif page == 'drinks':
-      drinks.Drinks
+      drinks.Drinks(win)
     elif page == 'checkout':
-      checkout.Checkout
+      checkout.Checkout(win)
     self.root.withdraw()
 
+#Displaying the current page on the tkinter root window
 def page():
   root = Tk()
   Drinks(root)
   root.mainloop()
-
-
 if __name__ == '__main__':
   page()
 
