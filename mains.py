@@ -15,7 +15,7 @@ global_font = 'roboto'
 class Mains:
   def __init__(self, root):
     self.root = root
-    self.root.geometry("1000x600")
+    self.root.geometry("1650x950")
     self.root.title("Wok'n Roll")
     self.root.config(bg = '#F5F5F5')
 
@@ -30,25 +30,25 @@ class Mains:
     menu_bar_frame = Frame(self.root, bg = 'white')
     menu_bar_frame.pack(side = LEFT)
     menu_bar_frame.pack_propagate(False)
-    menu_bar_frame.configure(width = 213, height = 720)
+    menu_bar_frame.configure(width = 213, height = 1000)
 
     #Menubar logo image
     logo_image1 = Image.open("Images\logo.png")
     logo_image = ImageTk.PhotoImage(logo_image1)
-    menu_bar_logo = Button(self.root, image = logo_image, cursor = "hand2", borderwidth= 0, command = lambda: self.change_page("home"))
+    menu_bar_logo = Button(self.root, image = logo_image, cursor = "hand2", borderwidth= 0, bg = 'white', command = lambda: self.change_page("home"))
     menu_bar_logo.image = logo_image
-    menu_bar_logo.place(x = 0, y = 0)
+    menu_bar_logo.place(x = 0, y = 20)
 
 
     #Menu bar options for home, mains, sides, and drinks
-    home_page = Button(menu_bar_frame, text = 'Home', font = (global_font, 20), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("home"))
-    home_page.place(x = 45, y = 120)
-    mains_page = Button(menu_bar_frame, text = 'Mains', font = (global_font, 20), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("mains"))
-    mains_page.place(x = 45, y = 195)
-    sides_page = Button(menu_bar_frame, text = 'Sides', font = (global_font, 20), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("sides"))
-    sides_page.place(x = 45, y = 270)
-    drinks_page = Button(menu_bar_frame, text = 'Drinks', font = (global_font, 20), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("drinks"))
-    drinks_page.place(x = 45, y =345)
+    home_page = Button(menu_bar_frame, text = 'Home', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("home"))
+    home_page.place(x = 52, y = 160)
+    mains_page = Button(menu_bar_frame, text = 'Mains', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("mains"))
+    mains_page.place(x = 52, y = 245)
+    sides_page = Button(menu_bar_frame, text = 'Sides', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("sides"))
+    sides_page.place(x = 52, y = 330)
+    drinks_page = Button(menu_bar_frame, text = 'Drinks', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("drinks"))
+    drinks_page.place(x = 50, y =415)
 
 
     #Shopping Cart Button at the bottom of menu bar
@@ -56,7 +56,7 @@ class Mains:
     checkout_photo = ImageTk.PhotoImage(checkout_image)
     menu_bar_checkout = Button(self.root, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
     menu_bar_checkout.image = checkout_photo
-    menu_bar_checkout.place(x = 20, y = 520)
+    menu_bar_checkout.place(x = 20, y = 875)
 
 #======================================Menu sidebar end========================================
 
