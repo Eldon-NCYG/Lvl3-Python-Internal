@@ -54,11 +54,13 @@ class Checkout:
     #Shopping Cart Button at the bottom of menu bar
     checkout_image = Image.open("Images\checkout.png")
     checkout_photo = ImageTk.PhotoImage(checkout_image)
-    menu_bar_checkout = Button(self.root, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
+    menu_bar_checkout = Button(menu_bar_frame, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
     menu_bar_checkout.image = checkout_photo
     menu_bar_checkout.place(x = 20, y = 875)
 
-
+    #Page indicator that shows a small orange box next to the currently opened page of the program (refinement based on stakeholder feedback)
+    page_indicator = Label(menu_bar_frame, text = '', bg ='#F4A72C', font = ('arial', 1), width = 103)
+    page_indicator.place(x = 65, y = 915)
 
 #================================================Checkout Page End======================================================
 
