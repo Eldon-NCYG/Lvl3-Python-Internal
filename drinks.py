@@ -14,7 +14,10 @@ global_font = 'roboto'
 class Drinks:
   def __init__(self, root):
     self.root = root
-    self.root.geometry("1650x950")
+
+    #Making the window fullscreen
+    self.root.state('zoomed')
+
     self.root.title("Wok'n Roll")
     self.root.config(bg = '#F5F5F5')
 
@@ -29,7 +32,7 @@ class Drinks:
     menu_bar_frame = Frame(self.root, bg = 'white')
     menu_bar_frame.pack(side = LEFT)
     menu_bar_frame.pack_propagate(False)
-    menu_bar_frame.configure(width = 213, height = 1000)
+    menu_bar_frame.configure(width = 213, height = 2000)
 
     #Menubar logo image
     logo_image1 = Image.open("Images\logo.png")
@@ -59,7 +62,7 @@ class Drinks:
     checkout_photo = ImageTk.PhotoImage(checkout_image)
     menu_bar_checkout = Button(menu_bar_frame, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
     menu_bar_checkout.image = checkout_photo
-    menu_bar_checkout.place(x = 20, y = 875)
+    menu_bar_checkout.pack(anchor='s', side = 'left', padx = 20, pady = 20)
 
 #======================================Menu sidebar end========================================
 

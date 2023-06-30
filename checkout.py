@@ -15,13 +15,15 @@ global_font = 'roboto'
 class Checkout:
   def __init__(self, root):
     self.root = root
-    self.root.geometry("1650x950")
+
+    #Making the window fullscreen
+    self.root.state('zoomed')
+    
     self.root.title("Wok'n Roll")
     self.root.config(bg = '#F5F5F5')
 
-    #Making window unresizable to that the widgets are messed up if the window is resized
-    self.root.resizable(False, False)
-
+    # #Making window unresizable to that the widgets are messed up if the window is resized
+    self.root.minsize(1200,600)
 
 
 #=========================================Side Menu Bar=============================================
@@ -30,7 +32,7 @@ class Checkout:
     menu_bar_frame = Frame(self.root, bg = 'white')
     menu_bar_frame.pack(side = LEFT)
     menu_bar_frame.pack_propagate(False)
-    menu_bar_frame.configure(width = 213, height = 1000)
+    menu_bar_frame.configure(width = 213, height = 2000)
 
     #Menubar logo image
     logo_image1 = Image.open("Images\logo.png")
@@ -38,6 +40,7 @@ class Checkout:
     menu_bar_logo = Button(self.root, image = logo_image, cursor = "hand2", borderwidth= 0, bg = 'white', command = lambda: self.change_page("home"))
     menu_bar_logo.image = logo_image
     menu_bar_logo.place(x = 0, y = 20)
+
 
 
     #Menu bar options for home, mains, sides, and drinks
@@ -56,11 +59,11 @@ class Checkout:
     checkout_photo = ImageTk.PhotoImage(checkout_image)
     menu_bar_checkout = Button(menu_bar_frame, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
     menu_bar_checkout.image = checkout_photo
-    menu_bar_checkout.place(x = 20, y = 875)
+    menu_bar_checkout.pack(anchor='s', side = 'left', padx = 20, pady = 20)
 
-    #Page indicator that shows a small orange box next to the currently opened page of the program (refinement based on stakeholder feedback)
-    page_indicator = Label(menu_bar_frame, text = '', bg ='#F4A72C', font = ('arial', 1), width = 103)
-    page_indicator.place(x = 65, y = 915)
+    # #Page indicator that shows a small orange box next to the currently opened page of the program (refinement based on stakeholder feedback)
+    # page_indicator = Label(menu_bar_frame, text = '', bg ='#F4A72C', width = 103)
+    # page_indicator.pack(anchor='s', side = 'left', pady= 20, padx = (0, 20))
 
 #================================================Checkout Page End======================================================
 
