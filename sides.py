@@ -23,8 +23,7 @@ class Sides:
     self.root.title("Wok'n Roll")
     self.root.config(bg = '#F5F5F5')
 
-    #Making window unresizable to that the widgets are messed up if the window is resized
-    self.root.resizable(False, False)
+
 
 
 
