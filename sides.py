@@ -14,85 +14,86 @@ global_font = 'roboto'
 
 #Setting up Window Properties
 class Sides:
-  def __init__(self, root):
-    self.root = root
+    def __init__(self, root):
+        self.root = root
 
-    #Making the window fullscreen
-    self.root.state('zoomed')
+        #Making the window fullscreen
+        self.root.state('zoomed')
 
-    self.root.title("Wok'n Roll")
-    self.root.config(bg = '#F5F5F5')
+        self.root.title("Wok'n Roll")
+        self.root.config(bg = '#F5F5F5')
 
-
-
-
-
-#=========================================Side Menu Bar=============================================
-
-    #Side menu bar frame
-    menu_bar_frame = Frame(self.root, bg = 'white')
-    menu_bar_frame.pack(side = LEFT)
-    menu_bar_frame.pack_propagate(False)
-    menu_bar_frame.configure(width = 213, height = 2000)
-
-    #Menubar logo image
-    logo_image1 = Image.open("Images\logo.png")
-    logo_image = ImageTk.PhotoImage(logo_image1)
-    menu_bar_logo = Button(self.root, image = logo_image, cursor = "hand2", borderwidth= 0, bg = 'white', command = lambda: self.change_page("home"))
-    menu_bar_logo.image = logo_image
-    menu_bar_logo.place(x = 0, y = 20)
+        #Making minimum available window size
+        self.root.minsize(1250,600)
 
 
-    #Menu bar options for home, mains, sides, and drinks
-    home_page = Button(menu_bar_frame, text = 'Home', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("home"))
-    home_page.place(x = 52, y = 160)
-    mains_page = Button(menu_bar_frame, text = 'Mains', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("mains"))
-    mains_page.place(x = 52, y = 245)
-    sides_page = Button(menu_bar_frame, text = 'Sides', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("sides"))
-    sides_page.place(x = 52, y = 330)
-    drinks_page = Button(menu_bar_frame, text = 'Drinks', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("drinks"))
-    drinks_page.place(x = 50, y =415)
 
-    #Page indicator that shows a small orange box next to the currently opened page of the program (refinement based on stakeholder feedback)
-    page_indicator = Label(menu_bar_frame, text = '', bg ='#F4A72C', height = 2)
-    page_indicator.place(x = 43, y = 338)
+    #=========================================Side Menu Bar=============================================
 
-    #Shopping Cart Button at the bottom of menu bar
-    checkout_image = Image.open("Images\checkout.png")
-    checkout_photo = ImageTk.PhotoImage(checkout_image)
-    menu_bar_checkout = Button(menu_bar_frame, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
-    menu_bar_checkout.image = checkout_photo
-    menu_bar_checkout.pack(anchor='s', side = 'left', padx = 20, pady = 20)
+        #Side menu bar frame
+        menu_bar_frame = Frame(self.root, bg = 'white')
+        menu_bar_frame.pack(side = LEFT)
+        menu_bar_frame.pack_propagate(False)
+        menu_bar_frame.configure(width = 213, height = 2000)
 
-#======================================Menu sidebar end========================================
+        #Menubar logo image
+        logo_image1 = Image.open("Images\logo.png")
+        logo_image = ImageTk.PhotoImage(logo_image1)
+        menu_bar_logo = Button(self.root, image = logo_image, cursor = "hand2", borderwidth= 0, bg = 'white', command = lambda: self.change_page("home"))
+        menu_bar_logo.image = logo_image
+        menu_bar_logo.place(x = 0, y = 20)
 
-#==================================================sides=============================================
 
-    home_page_title = Label(self.root, text = "sides", font = (global_font, 20))
-    home_page_title.place(x = 400, y = 20)
+        #Menu bar options for home, mains, sides, and drinks
+        home_page = Button(menu_bar_frame, text = 'Home', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("home"))
+        home_page.place(x = 52, y = 160)
+        mains_page = Button(menu_bar_frame, text = 'Mains', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("mains"))
+        mains_page.place(x = 52, y = 245)
+        sides_page = Button(menu_bar_frame, text = 'Sides', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("sides"))
+        sides_page.place(x = 52, y = 330)
+        drinks_page = Button(menu_bar_frame, text = 'Drinks', font = (global_font, 21), bg = 'white', bd = 0, cursor = "hand2", command = lambda: self.change_page("drinks"))
+        drinks_page.place(x = 50, y =415)
+
+        #Page indicator that shows a small orange box next to the currently opened page of the program (refinement based on stakeholder feedback)
+        page_indicator = Label(menu_bar_frame, text = '', bg ='#F4A72C', height = 2)
+        page_indicator.place(x = 43, y = 338)
+
+        #Shopping Cart Button at the bottom of menu bar
+        checkout_image = Image.open("Images\checkout.png")
+        checkout_photo = ImageTk.PhotoImage(checkout_image)
+        menu_bar_checkout = Button(menu_bar_frame, image = checkout_photo, bg = "white", borderwidth=0, cursor = "hand2", command = lambda: self.change_page("checkout"))
+        menu_bar_checkout.image = checkout_photo
+        menu_bar_checkout.pack(anchor='s', side = 'left', padx = 20, pady = 20)
+
+    #======================================Menu sidebar end========================================
+
+    #==================================================sides=============================================
+
+        home_page_title = Label(self.root, text = "sides", font = (global_font, 20))
+        home_page_title.place(x = 400, y = 20)
 
 #Navitating around the different pages of the program
-  def change_page(self, page):
-    win = Toplevel()
-    if page == 'home':
-      home.Home(win)
-    elif page == 'mains':
-      mains.Mains(win)
-    elif page == 'sides':
-      sides.Sides(win)
-    elif page == 'drinks':
-      drinks.Drinks(win)
-    elif page == 'checkout':
-      checkout.Checkout(win)
-    self.root.withdraw()
+    def change_page(self, page):
+        win = Toplevel()
+        if page == 'home':
+          home.Home(win)
+        elif page == 'mains':
+          mains.Mains(win)
+        elif page == 'sides':
+          sides.Sides(win)
+        elif page == 'drinks':
+          drinks.Drinks(win)
+        elif page == 'checkout':
+          checkout.Checkout(win)
+        self.root.withdraw()
 
 #Displaying the current page on the tkinter root window
 def page():
-  root = Tk()
-  Sides(root)
-  root.mainloop()
+    root = Tk()
+    Sides(root)
+    root.mainloop()
 if __name__ == '__main__':
-  page()
+    page()
 
 
 
