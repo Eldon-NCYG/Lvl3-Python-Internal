@@ -1,5 +1,10 @@
 from tkinter import *
+from tkinter import ttk
+
 from PIL import ImageTk, Image
+import random
+
+
 #Importing all the different pages to the file
 import home
 import mains
@@ -7,11 +12,16 @@ import home
 import sides
 import checkout
 import drinks
+from menu_list import mains_menu_list
 
 
 global_font = 'roboto'
 
-#Setting up Window Properties
+
+
+
+
+#Mains Class Window
 class Mains:
     def __init__(self, root):
         self.root = root
@@ -68,23 +78,103 @@ class Mains:
 
     #==================================================Homepage=============================================
 
-        home_page_title = Label(self.root, text = "Mains", font = (global_font, 20))
-        home_page_title.place(x = 400, y = 20)
+        #Home page canvas containing all home page widgets
+        mains_page_canvas = Canvas(self.root, scrollregion=(0,0,2000,2000), width = 200, bg = "#F5F5F5")
+        mains_page_canvas.pack(fill = 'both', expand = True)
+
+        #Adding a Vertical Scrollbar
+        mains_page_canvas.bind_all('<MouseWheel>', lambda event: mains_page_canvas.yview_scroll(-int(event.delta / 100), "units"))
+        yscrollbar = ttk.Scrollbar(self.root, orient = 'vertical', command = mains_page_canvas.yview)
+        mains_page_canvas.configure(yscrollcommand= yscrollbar.set)
+        mains_page_canvas.configure(scrollregion=mains_page_canvas.bbox('all'))
+        yscrollbar.place(relx = 1, rely = 0, relheight = 1, anchor = 'ne')
+
+
+        #Adding a horizontal scrollbar
+        mains_page_canvas.bind_all('<Control MouseWheel>', lambda event: mains_page_canvas.xview_scroll(-int(event.delta / 100), "units"))
+        xscrollbar = ttk.Scrollbar(self.root, orient = 'horizontal', command = mains_page_canvas.xview)
+        mains_page_canvas.configure(xscrollcommand=xscrollbar.set)
+        mains_page_canvas.configure(scrollregion=mains_page_canvas.bbox('all'))
+        xscrollbar.place(relx = 0, rely = 1, relwidth=1, anchor = 'sw')
+
+        #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
+        mains_page_frame = Frame(mains_page_canvas)
+        mains_page_canvas.create_window((40,200), window = mains_page_frame, anchor = "nw")
+
+
+
+        #Mains Menu Lists 
+        mains_title_image1 = Image.open("Images/menu items/mains/mains_title.png")
+        mains_title_image = ImageTk.PhotoImage(mains_title_image1)
+        mains_page_title = Label(mains_page_canvas, image = mains_title_image, width = 2000, height = 200, bg ="#F5F5F5")
+        mains_page_title.image = mains_title_image
+        mains_page_title.pack(anchor = 'center')
+
+        menu_list_frame = Frame(mains_page_frame, bg = '#F5F5F5')
+        menu_list_frame.pack(anchor = 'center')
+
+        #Row and column counter for grid manipulation
+        row_counter = 0
+        column_counter = 0
+
+        #Adding an item frame for each item in the main menu list
+        for item in mains_menu_list:
+
+            #Creating the frame
+            item_frame = Frame(menu_list_frame, bg = 'white', borderwidth= 20, relief='flat')
+
+            #Using grid to have a 3 column layout of the menu list
+            item_frame.grid(column = column_counter, row = row_counter, padx = 30, pady = 25)
+            column_counter +=1
+
+            if column_counter%4 == 0:
+                row_counter +=1
+                column_counter = 0
+
+
+            #Item image
+            dish_image2 = Image.open(item["image"]).resize((300,315), Image.ANTIALIAS)
+            dish_image1 = ImageTk.PhotoImage(dish_image2)
+            dish_image = Button(item_frame, image = dish_image1, borderwidth = 0, bg = 'white')
+            dish_image.image = dish_image1
+            dish_image.grid(row = 0, column = 0, columnspan=2)
+
+
+            #Item title
+            item_title = Label(item_frame, text = item["title"], font = (global_font, 27), bg = "white")
+            item_title.grid(row = 1, column = 0, columnspan = 2, pady = 15)
+
+            #Item price  
+            item_price = Label(item_frame, text = "$" + str(format(item["price"], '.2f')), fg = "#C87E07", bg = "white", font = (global_font, 22, "bold"))
+            item_price.grid(row = 2, column = 0, pady =(5, 12))
+
+            #View Item
+            view_button_image1 = Image.open("Images/view_button.png").resize((90, 40), Image.ANTIALIAS)
+            view_button_image = ImageTk.PhotoImage(view_button_image1)
+            view_button = Button(item_frame, image = view_button_image, borderwidth = 0, bg = 'white')
+            view_button.image = view_button_image
+            view_button.grid(row = 2, column = 1, pady = (5,12))
+
+
+
+#=====================================Mains page end==================================================================================
 
     #Navitating around the different pages of the program
     def change_page(self, page):
         win = Toplevel()
         if page == 'home':
-          home.Home(win)
+            home.Home(win)
         elif page == 'mains':
-          mains.Mains(win)
+            mains.Mains(win)
         elif page == 'sides':
-          sides.Sides(win)
+            sides.Sides(win)
         elif page == 'drinks':
-          drinks.Drinks(win)
+            drinks.Drinks(win)
         elif page == 'checkout':
-          checkout.Checkout(win)
+            checkout.Checkout(win)
         self.root.withdraw()
+
+
 
 #Displaying the current page on the tkinter root window
 def page():

@@ -1,5 +1,10 @@
 from tkinter import *
+from tkinter import ttk
+
 from PIL import ImageTk, Image
+import random
+
+
 #Importing all the different pages to the file
 import home
 import mains
@@ -7,6 +12,7 @@ import home
 import sides
 import checkout
 import drinks
+from menu_list import mains_menu_list
 
 
 global_font = 'roboto'

@@ -22,8 +22,7 @@ class Home:
         self.root = root
 
         #Making the window fullscreen
-        # self.root.state('zoomed')
-        self.root.geometry("1250x600")
+        self.root.state('zoomed')
 
         self.root.title("Wok'n Roll")
         self.root.config(bg = '#F5F5F5')
@@ -101,10 +100,6 @@ class Home:
         home_page_canvas.create_window((0,0), window = home_page_frame, anchor = "nw")
 
 
-
-
-
-
         #Homepage title/logo
         home_page_logo_image1 = Image.open("Images\wokn-roll-low-resolution-logo-color-on-transparent-background (1).png")
         home_page_logo_image1 = home_page_logo_image1.resize((500, 150))
@@ -152,19 +147,19 @@ class Home:
     #==================================================Homepage end=============================================
 
 
-  #Navitating around the different pages of the program
+#Navitating around the different pages of the program
     def change_page(self, page):
         win = Toplevel()
         if page == 'home':
-          home.Home(win)
+            home.Home(win)
         elif page == 'mains':
-          mains.Mains(win)
+            mains.Mains(win)
         elif page == 'sides':
-          sides.Sides(win)
+            sides.Sides(win)
         elif page == 'drinks':
-          drinks.Drinks(win)
+            drinks.Drinks(win)
         elif page == 'checkout':
-          checkout.Checkout(win)
+            checkout.Checkout(win)
         self.root.withdraw()
 
 #Displaying the current page on the tkinter root window
