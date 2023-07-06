@@ -79,7 +79,7 @@ class Mains:
     #==================================================Homepage=============================================
 
         #Home page canvas containing all home page widgets
-        mains_page_canvas = Canvas(self.root, scrollregion=(0,0,2000,2000), width = 200, bg = "#F5F5F5")
+        mains_page_canvas = Canvas(self.root, scrollregion=(0,0,1800,2000), width = 200, bg = "#F5F5F5")
         mains_page_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -106,7 +106,7 @@ class Mains:
         #Mains Menu Lists 
         mains_title_image1 = Image.open("Images/menu items/mains/mains_title.png")
         mains_title_image = ImageTk.PhotoImage(mains_title_image1)
-        mains_page_title = Label(mains_page_canvas, image = mains_title_image, width = 2000, height = 200, bg ="#F5F5F5")
+        mains_page_title = Label(mains_page_canvas, image = mains_title_image, width = 2000, height = 175, bg ="#F5F5F5")
         mains_page_title.image = mains_title_image
         mains_page_title.pack(anchor = 'center')
 
@@ -135,7 +135,7 @@ class Mains:
             #Item image
             dish_image2 = Image.open(item["image"]).resize((300,315), Image.ANTIALIAS)
             dish_image1 = ImageTk.PhotoImage(dish_image2)
-            dish_image = Button(item_frame, image = dish_image1, borderwidth = 0, bg = 'white')
+            dish_image = Label(item_frame, image = dish_image1, borderwidth = 0, bg = 'white')
             dish_image.image = dish_image1
             dish_image.grid(row = 0, column = 0, columnspan=2)
 
@@ -149,7 +149,7 @@ class Mains:
             item_price.grid(row = 2, column = 0, pady =(5, 12))
 
             #View Item
-            view_button_image1 = Image.open("Images/view_button.png").resize((90, 40), Image.ANTIALIAS)
+            view_button_image1 = Image.open("Images/view_button.png").resize((100, 40), Image.ANTIALIAS)
             view_button_image = ImageTk.PhotoImage(view_button_image1)
             view_button = Button(item_frame, image = view_button_image, borderwidth = 0, bg = 'white')
             view_button.image = view_button_image

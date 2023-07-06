@@ -43,3 +43,41 @@ mains_menu_list = [
     },
 ]
 
+sides_menu_list = [
+    {
+    "key": "a",
+    "title": "7x Xiaolong Bao",
+    "price": 13.50,
+    "image": "Images/menu items/sides/小笼包.jpg",
+    "rating": 9,
+    }
+]
+
+
+
+drinks_menu_list = [
+    {
+    "key": 'a',
+    "title": "Coca-Cola 600mL",
+    "price": 3.50,
+    "image": "Images/menu items/drinks/coke-600ml.jpg",
+    },
+    {
+    "key": 'b',
+    "title": "Coke No Sugar 600mL",
+    "price": 3.50,
+    "image": "Images/menu items/drinks/coke_no_sugar.jpg",
+    },
+    {
+    "key": 'c',
+    "title": "Sprite 600mL",
+    "price": 3.50,
+    "image": "Images/menu items/drinks/sprite.png",
+    },
+    {
+    "key": 'd',
+    "title": "Fanta 600mL",
+    "price": 3.50,
+    "image": "Images/menu items/drinks/fanta.jpg",
+    },
+]
