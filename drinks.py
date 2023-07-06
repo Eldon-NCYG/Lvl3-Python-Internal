@@ -75,7 +75,7 @@ class Drinks:
 
 #==========================================Drinks Page=================================================
         #Home page canvas containing all home page widgets
-        drinks_page_canvas = Canvas(self.root, scrollregion=(0,0,1800,2000), width = 200, bg = "#F5F5F5")
+        drinks_page_canvas = Canvas(self.root, scrollregion=(0,200,1800,2000), width = 200, bg = "#F5F5F5")
         drinks_page_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -95,12 +95,12 @@ class Drinks:
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
         drinks_page_frame = Frame(drinks_page_canvas)
-        drinks_page_canvas.create_window((40,200), window = drinks_page_frame, anchor = "nw")
+        drinks_page_canvas.create_window((15,200), window = drinks_page_frame, anchor = "nw")
 
         #Mains Menu Lists 
         drinks_title_image1 = Image.open("Images/menu items/drinks/drinks_title.png")
         drinks_title_image = ImageTk.PhotoImage(drinks_title_image1)
-        drinks_page_title = Label(drinks_page_canvas, image = drinks_title_image, width = 2000, height = 175, bg ="#F5F5F5")
+        drinks_page_title = Label(drinks_page_frame, image = drinks_title_image, width = 1640, height = 175, bg ="#F5F5F5")
         drinks_page_title.image = drinks_title_image
         drinks_page_title.pack(anchor = 'center')
 
@@ -127,7 +127,7 @@ class Drinks:
 
 
             #Item image
-            dish_image2 = Image.open(item["image"]).resize((300,315), Image.ANTIALIAS)
+            dish_image2 = Image.open(item["image"]).resize((280,295), Image.ANTIALIAS)
             dish_image1 = ImageTk.PhotoImage(dish_image2)
             dish_image = Label(item_frame, image = dish_image1, borderwidth = 0, bg = 'white')
             dish_image.image = dish_image1
@@ -135,11 +135,11 @@ class Drinks:
 
 
             #Item title
-            item_title = Label(item_frame, text = item["title"], font = (global_font, 25), bg = "white")
+            item_title = Label(item_frame, text = item["title"], font = (global_font, 24), bg = "white")
             item_title.grid(row = 1, column = 0, columnspan = 2, pady = 15)
 
             #Item price  
-            item_price = Label(item_frame, text = "$" + str(format(item["price"], '.2f')), fg = "#C87E07", bg = "white", font = (global_font, 22, "bold"))
+            item_price = Label(item_frame, text = "$" + str(format(item["price"], '.2f')), fg = "#C87E07", bg = "white", font = (global_font, 20, "bold"))
             item_price.grid(row = 2, column = 0, pady =(5, 12))
 
             #View Item

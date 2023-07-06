@@ -75,7 +75,7 @@ class Sides:
     #==================================================sides=============================================
 
         #Home page canvas containing all home page widgets
-        mains_page_canvas = Canvas(self.root, scrollregion=(0,0,1800,2000), width = 200, bg = "#F5F5F5")
+        mains_page_canvas = Canvas(self.root, scrollregion=(0,200,1800,2700), width = 200, bg = "#F5F5F5")
         mains_page_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -95,14 +95,14 @@ class Sides:
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
         mains_page_frame = Frame(mains_page_canvas)
-        mains_page_canvas.create_window((40,200), window = mains_page_frame, anchor = "nw")
+        mains_page_canvas.create_window((20,200), window = mains_page_frame, anchor = "nw")
 
 
 
         #Mains Menu Lists 
         sides_title_image1 = Image.open("Images/menu items/sides/sides_title.png")
         sides_title_image = ImageTk.PhotoImage(sides_title_image1)
-        sides_page_title = Label(mains_page_canvas, image = sides_title_image, width = 2000, height = 175, bg ="#F5F5F5")
+        sides_page_title = Label(mains_page_frame, image = sides_title_image, width = 1600, height = 175, bg ="#F5F5F5")
         sides_page_title.image = sides_title_image
         sides_page_title.pack(anchor = 'center')
 
@@ -144,7 +144,7 @@ class Sides:
             item_price = Label(item_frame, text = "$" + str(format(item["price"], '.2f')), fg = "#C87E07", bg = "white", font = (global_font, 22, "bold"))
             item_price.grid(row = 2, column = 0, pady =(5, 12))
 
-            #View Item
+            #View Item button
             view_button_image1 = Image.open("Images/view_button.png").resize((100, 40), Image.ANTIALIAS)
             view_button_image = ImageTk.PhotoImage(view_button_image1)
             view_button = Button(item_frame, image = view_button_image, borderwidth = 0, bg = 'white')

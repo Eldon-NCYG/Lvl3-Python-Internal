@@ -79,7 +79,7 @@ class Mains:
     #==================================================Homepage=============================================
 
         #Home page canvas containing all home page widgets
-        mains_page_canvas = Canvas(self.root, scrollregion=(0,0,1800,2000), width = 200, bg = "#F5F5F5")
+        mains_page_canvas = Canvas(self.root, scrollregion=(0,200,1700,2700), width = 200, bg = "#F5F5F5")
         mains_page_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -99,14 +99,14 @@ class Mains:
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
         mains_page_frame = Frame(mains_page_canvas)
-        mains_page_canvas.create_window((40,200), window = mains_page_frame, anchor = "nw")
+        mains_page_canvas.create_window((15,200), window = mains_page_frame, anchor = "nw")
 
 
 
         #Mains Menu Lists 
         mains_title_image1 = Image.open("Images/menu items/mains/mains_title.png")
         mains_title_image = ImageTk.PhotoImage(mains_title_image1)
-        mains_page_title = Label(mains_page_canvas, image = mains_title_image, width = 2000, height = 175, bg ="#F5F5F5")
+        mains_page_title = Label(mains_page_frame, image = mains_title_image, height = 175, width = 1640, bg ="#F5F5F5")
         mains_page_title.image = mains_title_image
         mains_page_title.pack(anchor = 'center')
 
@@ -133,7 +133,7 @@ class Mains:
 
 
             #Item image
-            dish_image2 = Image.open(item["image"]).resize((300,315), Image.ANTIALIAS)
+            dish_image2 = Image.open(item["image"]).resize((300,315), Image.Resampling.LANCZOS)
             dish_image1 = ImageTk.PhotoImage(dish_image2)
             dish_image = Label(item_frame, image = dish_image1, borderwidth = 0, bg = 'white')
             dish_image.image = dish_image1
@@ -141,7 +141,7 @@ class Mains:
 
 
             #Item title
-            item_title = Label(item_frame, text = item["title"], font = (global_font, 27), bg = "white")
+            item_title = Label(item_frame, text = item["title"], font = (global_font, 25), bg = "white")
             item_title.grid(row = 1, column = 0, columnspan = 2, pady = 15)
 
             #Item price  
@@ -149,7 +149,7 @@ class Mains:
             item_price.grid(row = 2, column = 0, pady =(5, 12))
 
             #View Item
-            view_button_image1 = Image.open("Images/view_button.png").resize((100, 40), Image.ANTIALIAS)
+            view_button_image1 = Image.open("Images/view_button.png").resize((100, 40), Image.Resampling.LANCZOS)
             view_button_image = ImageTk.PhotoImage(view_button_image1)
             view_button = Button(item_frame, image = view_button_image, borderwidth = 0, bg = 'white')
             view_button.image = view_button_image
