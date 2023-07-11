@@ -14,6 +14,8 @@ import checkout
 import drinks
 from menu_list import mains_menu_list
 
+
+#Font that will be used throughout the program
 global_font = 'roboto'
 
 #Setting up Window Properties
@@ -73,8 +75,7 @@ class Home:
 
     #======================================Menu sidebar end========================================
 
-    #==================================================Homepage=============================================
-
+    #==================================================Adding Scrollbars=============================================
         #Home page canvas containing all home page widgets
         home_page_canvas = Canvas(self.root, scrollregion=(0,0,1707,1080))
         home_page_canvas.pack(fill = 'both', expand = True)
@@ -93,13 +94,14 @@ class Home:
         home_page_canvas.configure(xscrollcommand=xscrollbar.set)
         home_page_canvas.configure(scrollregion=home_page_canvas.bbox('all'))
         xscrollbar.place(relx = 0, rely = 1, relwidth=1, anchor = 'sw')
-      
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
         home_page_frame = Frame(home_page_canvas)
         home_page_canvas.create_window((0,0), window = home_page_frame, anchor = "nw")
 
+#===========================================================================================================================
 
+#==================================================Homepage================================================================
         #Homepage title/logo
         home_page_logo_image1 = Image.open("Images\wokn-roll-low-resolution-logo-color-on-transparent-background (1).png")
         home_page_logo_image1 = home_page_logo_image1.resize((500, 150))
@@ -112,7 +114,6 @@ class Home:
         home_page_about = Label(home_page_frame, text = "Welcome to our authentic Chinese restaurant, where we take pride in serving you a delightful culinary experience steeped in the rich traditions of Chinese cuisine. ", bg = 'white', font = (global_font, 30), width = 65, height = 4, borderwidth = 10)
         home_page_about.bind('<Configure>', lambda e: home_page_about.config(wraplength = home_page_about.winfo_width()))
         home_page_about.pack(padx = 60, pady = 25)
-
 
 
         #Daily Special Dish Section

@@ -14,7 +14,12 @@ import checkout
 import drinks
 from menu_list import drinks_menu_list
 
+#Font that will be used throughout the program
 global_font = 'roboto'
+
+
+
+
 
 #Setting up Window Properties
 class Drinks:
@@ -29,6 +34,7 @@ class Drinks:
 
         #Making minimum available window size
         self.root.minsize(1250,600)
+
 
 
 
@@ -73,7 +79,7 @@ class Drinks:
 
 #======================================Menu sidebar end========================================
 
-#==========================================Drinks Page=================================================
+#==========================================Adding scrollbars=================================================
         #Home page canvas containing all home page widgets
         drinks_page_canvas = Canvas(self.root, scrollregion=(0,200,1800,2000), width = 200, bg = "#F5F5F5")
         drinks_page_canvas.pack(fill = 'both', expand = True)
@@ -96,28 +102,31 @@ class Drinks:
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
         drinks_page_frame = Frame(drinks_page_canvas)
         drinks_page_canvas.create_window((15,200), window = drinks_page_frame, anchor = "nw")
+#================================================================================================================
 
-        #Mains Menu Lists 
+        #================================================Mains Menu Lists ================================================================
+        #Drinks menu logo
         drinks_title_image1 = Image.open("Images/menu items/drinks/drinks_title.png")
         drinks_title_image = ImageTk.PhotoImage(drinks_title_image1)
         drinks_page_title = Label(drinks_page_frame, image = drinks_title_image, width = 1640, height = 175, bg ="#F5F5F5")
         drinks_page_title.image = drinks_title_image
         drinks_page_title.pack(anchor = 'center')
 
-        menu_list_frame = Frame(drinks_page_frame, bg = '#F5F5F5')
+        #Frame containing all the drink options
+        menu_list_frame = Frame(drinks_page_frame, bg = '#F5F5F5', highlightbackground='#F5F5F5')
         menu_list_frame.pack(anchor = 'center')
 
-        #Row and column counter for grid manipulation
+        #Row and column counter for grid manipulation of widgets
         row_counter = 0
         column_counter = 0
 
-        #Adding an item frame for each item in the main menu list
+        #Adding an item frame for each item in the drinks menu list
         for item in drinks_menu_list:
 
-            #Creating the frame
+            #Creating item card
             item_frame = Frame(menu_list_frame, bg = 'white', borderwidth= 20, relief='flat')
 
-            #Using grid to have a 3 column layout of the menu list
+            #Using grid to have a 4 column layout of the menu list
             item_frame.grid(column = column_counter, row = row_counter, padx = 30, pady = 25)
             column_counter +=1
 
@@ -127,11 +136,11 @@ class Drinks:
 
 
             #Item image
-            dish_image2 = Image.open(item["image"]).resize((280,295), Image.ANTIALIAS)
-            dish_image1 = ImageTk.PhotoImage(dish_image2)
-            dish_image = Label(item_frame, image = dish_image1, borderwidth = 0, bg = 'white')
-            dish_image.image = dish_image1
-            dish_image.grid(row = 0, column = 0, columnspan=2)
+            item_image2 = Image.open(item["image"]).resize((280,295), Image.Resampling.LANCZOS)
+            item_image1 = ImageTk.PhotoImage(item_image2)
+            item_image = Label(item_frame, image = item_image1, borderwidth = 0, bg = 'white')
+            item_image.image = item_image1
+            item_image.grid(row = 0, column = 0, columnspan=2)
 
 
             #Item title
@@ -143,9 +152,9 @@ class Drinks:
             item_price.grid(row = 2, column = 0, pady =(5, 12))
 
             #View Item
-            drinks_add_to_cart_button_image1 = Image.open("Images/menu items/drinks/drinks_add_to_cart.png").resize((140, 35), Image.ANTIALIAS)
+            drinks_add_to_cart_button_image1 = Image.open("Images/menu items/drinks/drinks_add_to_cart.png").resize((140, 35), Image.Resampling.LANCZOS)
             drinks_add_to_cart_button_image = ImageTk.PhotoImage(drinks_add_to_cart_button_image1)
-            drinks_add_to_cart = Button(item_frame, image = drinks_add_to_cart_button_image, borderwidth = 0, bg = 'white')
+            drinks_add_to_cart = Button(item_frame, image = drinks_add_to_cart_button_image, borderwidth = 0, bg = 'white', cursor = "hand2")
             drinks_add_to_cart.image = drinks_add_to_cart_button_image
             drinks_add_to_cart.grid(row = 2, column = 1, pady = (5,12))
 
@@ -153,7 +162,7 @@ class Drinks:
 
 #===================================Drinks Page End==============================================
 
-#Navitating around the different pages of the program
+#Navigating around the different pages of the program
     def change_page(self, page):
         win = Toplevel()
         if page == 'home':

@@ -12,12 +12,11 @@ import home
 import sides
 import checkout
 import drinks
+import dish_viewer
 from menu_list import mains_menu_list
 
 
 global_font = 'roboto'
-
-
 
 
 
@@ -38,7 +37,6 @@ class Mains:
 
 
     #=========================================Side Menu Bar=============================================
-
         #Side menu bar frame
         menu_bar_frame = Frame(self.root, bg = 'white')
         menu_bar_frame.pack(side = LEFT)
@@ -76,7 +74,7 @@ class Mains:
 
     #======================================Menu sidebar end========================================
 
-    #==================================================Homepage=============================================
+    #==================================================Adding scrollbars=============================================
 
         #Home page canvas containing all home page widgets
         mains_page_canvas = Canvas(self.root, scrollregion=(0,200,1700,2700), width = 200, bg = "#F5F5F5")
@@ -98,11 +96,14 @@ class Mains:
         xscrollbar.place(relx = 0, rely = 1, relwidth=1, anchor = 'sw')
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
-        mains_page_frame = Frame(mains_page_canvas)
+        mains_page_frame = Frame(mains_page_canvas, bg = "#F5F5F5")
         mains_page_canvas.create_window((15,200), window = mains_page_frame, anchor = "nw")
 
 
+#==================================================================================================================
 
+
+#==================================================Mains menu================================================================
         #Mains Menu Lists 
         mains_title_image1 = Image.open("Images/menu items/mains/mains_title.png")
         mains_title_image = ImageTk.PhotoImage(mains_title_image1)
@@ -112,6 +113,7 @@ class Mains:
 
         menu_list_frame = Frame(mains_page_frame, bg = '#F5F5F5')
         menu_list_frame.pack(anchor = 'center')
+
 
         #Row and column counter for grid manipulation
         row_counter = 0
@@ -133,31 +135,37 @@ class Mains:
 
 
             #Item image
-            dish_image2 = Image.open(item["image"]).resize((300,315), Image.Resampling.LANCZOS)
-            dish_image1 = ImageTk.PhotoImage(dish_image2)
-            dish_image = Label(item_frame, image = dish_image1, borderwidth = 0, bg = 'white')
-            dish_image.image = dish_image1
-            dish_image.grid(row = 0, column = 0, columnspan=2)
+            item_image2 = Image.open(item["image"]).resize((300,315), Image.Resampling.LANCZOS)
+            item_image1 = ImageTk.PhotoImage(item_image2)
+            item_image = Label(item_frame, image = item_image1, borderwidth = 0, bg = 'white')
+            item_image.image = item_image1
+            item_image.grid(row = 0, column = 0, columnspan=3)
 
 
             #Item title
             item_title = Label(item_frame, text = item["title"], font = (global_font, 25), bg = "white")
-            item_title.grid(row = 1, column = 0, columnspan = 2, pady = 15)
+            item_title.grid(row = 1, column = 0, columnspan = 3, pady = 15)
 
             #Item price  
-            item_price = Label(item_frame, text = "$" + str(format(item["price"], '.2f')), fg = "#C87E07", bg = "white", font = (global_font, 22, "bold"))
+            item_price = Label(item_frame, text = "$" + str(format(item["price"], '.2f')), fg = "#C87E07", bg = "white", font = (global_font, 19, "bold"))
             item_price.grid(row = 2, column = 0, pady =(5, 12))
 
-            #View Item
+            #View Item (on click, opens up item viewer (component 4))
             view_button_image1 = Image.open("Images/view_button.png").resize((100, 40), Image.Resampling.LANCZOS)
             view_button_image = ImageTk.PhotoImage(view_button_image1)
-            view_button = Button(item_frame, image = view_button_image, borderwidth = 0, bg = 'white')
+            view_button = Button(item_frame, image = view_button_image, borderwidth = 0, bg = 'white',cursor = "hand2", command = lambda item = item: self.dish_viewer_page(item, "mains"))
             view_button.image = view_button_image
-            view_button.grid(row = 2, column = 1, pady = (5,12))
+            view_button.grid(row = 2, column = 1, pady = (5,12), padx = 5)
+
+            #Rating of Dish
+            rating = Label(item_frame, text = str(item["rating"]) + "/10", font = (global_font, 17), bg = "white")
+            rating.grid(row = 2, column = 2, pady =(5, 12))
 
 
 
 #=====================================Mains page end==================================================================================
+
+
 
     #Navitating around the different pages of the program
     def change_page(self, page):
@@ -173,6 +181,13 @@ class Mains:
         elif page == 'checkout':
             checkout.Checkout(win)
         self.root.withdraw()
+
+    #Function to open up dish viewer (component 4)
+    def dish_viewer_page(self, dish, previous_page):
+        self.root.withdraw()
+        win = Toplevel()
+        dish_viewer.Dish_Viewer(win, dish, previous_page)
+
 
 
 
