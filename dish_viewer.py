@@ -16,9 +16,7 @@ from menu_list import mains_menu_list
 
 #Font that will be used throughout the program
 global_font = 'roboto'
-
-
-
+no_dishes = 0
 
 #Dish_Viewer Class Window
 class Dish_Viewer:
@@ -123,7 +121,7 @@ class Dish_Viewer:
         dish_photo = ImageTk.PhotoImage(dish_image1)
         dish_image = Label(dish_profile, image = dish_photo, borderwidth= 0, bg = 'white')
         dish_image.image = dish_photo
-        dish_image.grid(row = 0, column = 2, rowspan = 4, padx = 100)
+        dish_image.grid(row = 0, column = 2, rowspan = 4, columnspan=6, padx = 100)
 
         #Dish price
         dish_price = Label(dish_profile, text = "$" + str(format(dish["price"], '.2f')), fg ='#C87E07', bg = "#F5F5F5", font = (global_font, 23))
@@ -147,13 +145,41 @@ class Dish_Viewer:
         add_to_cart_image = ImageTk.PhotoImage(add_to_cart_image1)
         add_to_cart_button = Button(dish_profile, image = add_to_cart_image, bg = '#F5F5F5', borderwidth=0, cursor = 'hand2',)
         add_to_cart_button.image = add_to_cart_image
-        add_to_cart_button.grid(column = 2, row = 5, rowspan=4,pady = 25)
+        add_to_cart_button.grid(column = 5, row = 5, pady = 25, padx = (25,0))
+
+
+        #Refinement: Dish counter
+
+        #Showing how many dishes would be added to the shopping cart
+        dish_counter_number = Label(dish_profile, text = 0, font = (global_font, 35, "bold"), bg = "#F5F5F5")
+        dish_counter_number.grid(row = 5, column = 3)
+
+
+        #Subtract 1 dish button
+        subtract_button_image1 = Image.open("Images/-.png").resize((65, 70), Image.Resampling.LANCZOS)
+        subtract_button_image = ImageTk.PhotoImage(subtract_button_image1)
+        subtract_button = Button(dish_profile, image = subtract_button_image, borderwidth= 0, bg = '#F5F5F5', cursor = 'hand2', command = lambda: self.dish_counter("-", dish_counter_number))
+        subtract_button.image = subtract_button_image
+        subtract_button.grid(row = 5, column = 2, padx = (85, 0))
+
+        #Plus 1 dish button
+        plus_button_image1 = Image.open("Images/+.png").resize((65, 70), Image.Resampling.LANCZOS)
+        plus_button_image = ImageTk.PhotoImage(plus_button_image1)
+        plus_button = Button(dish_profile, image = plus_button_image, borderwidth= 0, bg = '#F5F5F5', cursor = 'hand2', command = lambda: self.dish_counter("+", dish_counter_number))
+        plus_button.image = plus_button_image
+        plus_button.grid(row = 5, column = 4, padx = (0, 20))
+
+
+
+
 #=====================================dish viewer==================================================================================
 
 
 
     #Navitating around the different pages of the program
     def change_page(self, page):
+        global no_dishes
+        no_dishes = 0
         win = Toplevel()
         if page == 'home':
             home.Home(win)
@@ -166,6 +192,27 @@ class Dish_Viewer:
         elif page == 'checkout':
             checkout.Checkout(win)
         self.root.withdraw()
+
+
+#Refinement: Dish counter function that is ran when the plus or subtract button is clicked
+    def dish_counter(self, operation, counter):
+        global no_dishes
+
+        #Checking which operation was passed
+        if operation == "+":
+            no_dishes +=  1
+        elif operation == "-":
+            #Error handling to prevent negative number of dishes
+            if no_dishes <= 0:
+                no_dishes = 0
+            else:
+                no_dishes -= 1
+
+        #Changing the text on the screen to the new number of dishes
+        counter.config(text = str(no_dishes))
+
+
+
 
 
 

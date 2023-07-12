@@ -218,7 +218,7 @@ drinks_menu_list = [
     "image": "Images/menu items/drinks/kiwi_blue.jpg",
     },
     {
-    "title": "Wang Lao Ji 310mL",
+    "title": "Herbal Tea 310mL",
     "price": 3.99,
     "image": "Images/menu items/drinks/王老吉.jpg",
     },
