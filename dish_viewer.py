@@ -3,7 +3,7 @@ from tkinter import ttk
 
 from PIL import ImageTk, Image
 import random
-
+from tkinter import messagebox
 
 #Importing all the different pages to the file
 import home
@@ -13,6 +13,8 @@ import sides
 import checkout
 import drinks
 from menu_list import mains_menu_list
+from checkout import shopping_cart_list
+
 
 #Font that will be used throughout the program
 global_font = 'roboto'
@@ -124,11 +126,11 @@ class Dish_Viewer:
         dish_image.grid(row = 0, column = 2, rowspan = 4, columnspan=6, padx = 100)
 
         #Dish price
-        dish_price = Label(dish_profile, text = "$" + str(format(dish["price"], '.2f')), fg ='#C87E07', bg = "#F5F5F5", font = (global_font, 23))
+        dish_price = Label(dish_profile, text = "$" + str(format(dish["price"], '.2f')), fg ='#C87E07', bg = "#F5F5F5", font = (global_font, 25, "bold"))
         dish_price.grid(column = 0, row = 1, padx =(0, 150))
 
         #Dish rating + random number of ratings for decorational purposes
-        dish_rating = Label(dish_profile, text = str(dish["rating"]) + "/10 (" + str(random.randint(0,1000)) + " ratings)", bg ='#F5F5F5', font = (global_font, 23))
+        dish_rating = Label(dish_profile, text = str(dish["rating"]) + "/10 (" + str(random.randint(0,1000)) + " ratings)", bg ='#F5F5F5', font = (global_font, 25))
         dish_rating.grid(column = 1, row = 1,padx = (0,20))
 
         #Bold description title
@@ -139,13 +141,6 @@ class Dish_Viewer:
         dish_description = Label(dish_profile, text = dish["description"], bg ='#F5F5F5', font = (global_font, 18), anchor = 'w', justify='left')
         dish_description.bind('<Configure>', lambda e: dish_description.config(wraplength = 650 ))
         dish_description.grid(column = 0, row = 3, rowspan=2, columnspan = 2)
-
-        #Add to cart button
-        add_to_cart_image1 = Image.open("Images/add_to_cart.png").resize((250,60), Image.Resampling.LANCZOS)
-        add_to_cart_image = ImageTk.PhotoImage(add_to_cart_image1)
-        add_to_cart_button = Button(dish_profile, image = add_to_cart_image, bg = '#F5F5F5', borderwidth=0, cursor = 'hand2',)
-        add_to_cart_button.image = add_to_cart_image
-        add_to_cart_button.grid(column = 5, row = 5, pady = 25, padx = (25,0))
 
 
         #Refinement: Dish counter
@@ -168,6 +163,13 @@ class Dish_Viewer:
         plus_button = Button(dish_profile, image = plus_button_image, borderwidth= 0, bg = '#F5F5F5', cursor = 'hand2', command = lambda: self.dish_counter("+", dish_counter_number))
         plus_button.image = plus_button_image
         plus_button.grid(row = 5, column = 4, padx = (0, 20))
+
+        #Add to cart button
+        add_to_cart_image1 = Image.open("Images/add_to_cart.png").resize((250,60), Image.Resampling.LANCZOS)
+        add_to_cart_image = ImageTk.PhotoImage(add_to_cart_image1)
+        add_to_cart_button = Button(dish_profile, image = add_to_cart_image, bg = '#F5F5F5', borderwidth=0, cursor = 'hand2', command = lambda dish = dish: self.add_to_cart(no_dishes, dish))
+        add_to_cart_button.image = add_to_cart_image
+        add_to_cart_button.grid(column = 5, row = 5, pady = 25, padx = (25,0))
 
 
 
@@ -212,7 +214,13 @@ class Dish_Viewer:
         counter.config(text = str(no_dishes))
 
 
-
+    #Functiont ran when add to cart button clicked
+    def add_to_cart(self, quantity, dish):
+        messagebox.showinfo(title = None, message = str(quantity) + "x " + dish["title"]+ " added")
+        dish_dict = {}
+        dish_dict["dish"] = dish
+        dish_dict["quantity"] = quantity
+        shopping_cart_list = dish_dict
 
 
 

@@ -16,6 +16,9 @@ from menu_list import mains_menu_list
 
 
 global_font = 'roboto'
+shopping_cart_list = []
+
+
 
 #Setting up Window Properties
 class Checkout:
@@ -74,8 +77,48 @@ class Checkout:
 #================================================Sidebar End======================================================
 
     #================================================Checkout start======================================================
-        home_page_title = Label(self.root, text = "Checkout", font = (global_font, 20))
-        home_page_title.place(x = 400, y = 20)
+
+#==========================================Adding scrollbars=================================================
+        #checkout canvas containing all home page widgets
+        checkout_canvas = Canvas(self.root, scrollregion=(0,200,1800,2000), width = 200, bg = "#F5F5F5")
+        checkout_canvas.pack(fill = 'both', expand = True)
+
+        #Adding a Vertical Scrollbar
+        checkout_canvas.bind_all('<MouseWheel>', lambda event: checkout_canvas.yview_scroll(-int(event.delta / 100), "units"))
+        yscrollbar = ttk.Scrollbar(self.root, orient = 'vertical', command = checkout_canvas.yview)
+        checkout_canvas.configure(yscrollcommand= yscrollbar.set)
+        checkout_canvas.configure(scrollregion=checkout_canvas.bbox('all'))
+        yscrollbar.place(relx = 1, rely = 0, relheight = 1, anchor = 'ne')
+
+
+        #Adding a horizontal scrollbar
+        checkout_canvas.bind_all('<Control MouseWheel>', lambda event: checkout_canvas.xview_scroll(-int(event.delta / 100), "units"))
+        xscrollbar = ttk.Scrollbar(self.root, orient = 'horizontal', command = checkout_canvas.xview)
+        checkout_canvas.configure(xscrollcommand=xscrollbar.set)
+        checkout_canvas.configure(scrollregion=checkout_canvas.bbox('all'))
+        xscrollbar.place(relx = 0, rely = 1, relwidth=1, anchor = 'sw')
+
+        #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
+        checkout_frame = Frame(checkout_canvas)
+        checkout_canvas.create_window((15,200), window = checkout_frame, anchor = "nw")
+#================================================================================================================
+
+        shopping_cart_list_frame = Frame(checkout_frame)
+        shopping_cart_list_frame.pack()
+
+        shopping_cart_title = Label(shopping_cart_list_frame, text = "Shopping Cart", font = (global_font, 25))
+        shopping_cart_title.pack(padx = 50, pady = 50)
+
+        for item in shopping_cart_list:
+            item_frame = Frame(shopping_cart_list_frame, bg = 'white')
+            item_frame.pack()
+
+            item_title = Label(item_frame, text = item["name"], font= (global_font, 12), bg = "white") 
+            item_title.grid(row = 0, column = 2)
+
+
+
+
 
 #================================================checkout End======================================================
 
@@ -83,15 +126,15 @@ class Checkout:
     def change_page(self, page):
         win = Toplevel()
         if page == 'home':
-          home.Home(win)
+            home.Home(win)
         elif page == 'mains':
-          mains.Mains(win)
+            mains.Mains(win)
         elif page == 'sides':
-          sides.Sides(win)
+            sides.Sides(win)
         elif page == 'drinks':
-          drinks.Drinks(win)
+            drinks.Drinks(win)
         elif page == 'checkout':
-          checkout.Checkout(win)
+            checkout.Checkout(win)
         self.root.withdraw()
 
 #Displaying the current page on the tkinter root window

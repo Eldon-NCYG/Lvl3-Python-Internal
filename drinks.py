@@ -3,6 +3,8 @@ from tkinter import ttk
 
 from PIL import ImageTk, Image
 import random
+from tkinter import messagebox
+
 
 
 #Importing all the different pages to the file
@@ -80,7 +82,7 @@ class Drinks:
 #======================================Menu sidebar end========================================
 
 #==========================================Adding scrollbars=================================================
-        #Home page canvas containing all home page widgets
+        #Drinks canvas containing all home page widgets
         drinks_page_canvas = Canvas(self.root, scrollregion=(0,200,1800,2000), width = 200, bg = "#F5F5F5")
         drinks_page_canvas.pack(fill = 'both', expand = True)
 
@@ -176,6 +178,7 @@ class Drinks:
         elif page == 'checkout':
             checkout.Checkout(win)
         self.root.withdraw()
+
 
 #Displaying the current page on the tkinter root window
 def page():

@@ -117,14 +117,14 @@ mains_menu_list = [
 
 sides_menu_list = [
     {
-    "title": "7x Xiaolong Bao",
+    "title": "Xiaolong Bao",
     "price": 13.50,
     "image": "Images/menu items/sides/小笼包.jpg",
     "rating": 9,
     "description": "Xiaolong bao, also known as soup dumplings, are a delightful and iconic Chinese dish. These bite-sized dumplings are filled with a flavorful mixture of seasoned meat, typically pork, and a rich, savory broth. The dumpling wrappers are thin and delicate, steamed to perfection. When bitten into, the tender filling releases a burst of savory soup, creating a delightful explosion of flavors in the mouth. Xiaolong bao are often served with vinegar and ginger for dipping, adding a tangy and aromatic element to each bite. These delicate and comforting dumplings are a must-try in Chinese cuisine."
     },
     {
-    "title": "4x Pork Buns",
+    "title": "Pork Buns",
     "price": 12.99,
     "image": "Images/menu items/sides/pork_buns.jpg",
     "rating": 10,
@@ -166,7 +166,7 @@ sides_menu_list = [
     "description":"Pork dumplings are a savory delight in various cuisines, cherished for their succulent filling and tender wrapper. These dumplings feature a delicate dough encasing a flavorful mixture of ground pork, seasonings, and sometimes additional ingredients like cabbage or green onions. Whether steamed, boiled, or pan-fried, pork dumplings offer a delectable combination of textures. The juicy and savory filling bursts with flavor as you take a bite into the tender wrapper. Served with a dipping sauce or added to soups, pork dumplings are a beloved staple that brings joy and satisfaction to dumpling enthusiasts worldwide."
     },
     {
-    "title": "6x Shumai",
+    "title": "Shumai",
     "price": 8.99,
     "image": "Images/menu items/sides/shumai.jpg",
     "rating": 7,
