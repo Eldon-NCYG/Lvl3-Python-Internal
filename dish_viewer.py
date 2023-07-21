@@ -12,13 +12,12 @@ import home
 import sides
 import checkout
 import drinks
-from menu_list import mains_menu_list
-from checkout import shopping_cart_list
+from menu_list import shopping_cart_list
 
 
 #Font that will be used throughout the program
 global_font = 'roboto'
-no_dishes = 0
+no_dishes = 1
 
 #Dish_Viewer Class Window
 class Dish_Viewer:
@@ -146,7 +145,8 @@ class Dish_Viewer:
         #Refinement: Dish counter
 
         #Showing how many dishes would be added to the shopping cart
-        dish_counter_number = Label(dish_profile, text = 0, font = (global_font, 35, "bold"), bg = "#F5F5F5")
+        global dish_counter_number
+        dish_counter_number = Label(dish_profile, text = no_dishes, font = (global_font, 35, "bold"), bg = "#F5F5F5")
         dish_counter_number.grid(row = 5, column = 3)
 
 
@@ -181,7 +181,7 @@ class Dish_Viewer:
     #Navitating around the different pages of the program
     def change_page(self, page):
         global no_dishes
-        no_dishes = 0
+        no_dishes = 1
         win = Toplevel()
         if page == 'home':
             home.Home(win)
@@ -205,8 +205,8 @@ class Dish_Viewer:
             no_dishes +=  1
         elif operation == "-":
             #Error handling to prevent negative number of dishes
-            if no_dishes <= 0:
-                no_dishes = 0
+            if no_dishes <= 1:
+                no_dishes = 1
             else:
                 no_dishes -= 1
 
@@ -214,13 +214,27 @@ class Dish_Viewer:
         counter.config(text = str(no_dishes))
 
 
-    #Functiont ran when add to cart button clicked
+    #Function ran when add to cart button clicked
     def add_to_cart(self, quantity, dish):
-        messagebox.showinfo(title = None, message = str(quantity) + "x " + dish["title"]+ " added")
+        #Resetting the quantity of dishes to 1
+        no_dishes= 1
+        global dish_counter_number
+        dish_counter_number.config(text = no_dishes)
+
+        #Message box informing the user that an item has been added
+        messagebox.showinfo(title = "Shopping Cart:", message = str(quantity) + "x " + dish["title"]+ " added to your shopping cart!")
+
+        #Adding the selected item into the shopping cart list
         dish_dict = {}
-        dish_dict["dish"] = dish
+        dish_dict["item"] = dish
         dish_dict["quantity"] = quantity
-        shopping_cart_list = dish_dict
+        shopping_cart_list.append(dish_dict)
+        no_dishes = 1
+
+        quantity = no_dishes
+
+
+
 
 
 

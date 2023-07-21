@@ -240,3 +240,4 @@ drinks_menu_list = [
 ]
 
 
+shopping_cart_list = []

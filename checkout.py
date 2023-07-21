@@ -1,9 +1,11 @@
+
+#Importing all necessary Modules
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 
 from PIL import ImageTk, Image
 import random
-
 
 #Importing all the different pages to the file
 import home
@@ -12,11 +14,11 @@ import home
 import sides
 import checkout
 import drinks
-from menu_list import mains_menu_list
+from menu_list import shopping_cart_list
 
 
 global_font = 'roboto'
-shopping_cart_list = []
+total_price = 0
 
 
 
@@ -80,7 +82,7 @@ class Checkout:
 
 #==========================================Adding scrollbars=================================================
         #checkout canvas containing all home page widgets
-        checkout_canvas = Canvas(self.root, scrollregion=(0,200,1800,2000), width = 200, bg = "#F5F5F5")
+        checkout_canvas = Canvas(self.root, scrollregion=(0,200,2000,len(shopping_cart_list) * 650), width = 200, bg = "#F5F5F5",)
         checkout_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -99,23 +101,91 @@ class Checkout:
         xscrollbar.place(relx = 0, rely = 1, relwidth=1, anchor = 'sw')
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
-        checkout_frame = Frame(checkout_canvas)
+        checkout_frame = Frame(checkout_canvas, highlightthickness=0)
         checkout_canvas.create_window((15,200), window = checkout_frame, anchor = "nw")
 #================================================================================================================
 
-        shopping_cart_list_frame = Frame(checkout_frame)
-        shopping_cart_list_frame.pack()
+        shopping_cart_list_frame = Frame(checkout_frame, bg = "#F5F5F5",)
+        shopping_cart_list_frame.pack(padx = 150)
 
-        shopping_cart_title = Label(shopping_cart_list_frame, text = "Shopping Cart", font = (global_font, 25))
-        shopping_cart_title.pack(padx = 50, pady = 50)
+        shopping_cart_title = Label(shopping_cart_list_frame, text = "Shopping Cart:", font = (global_font, 50), bg = "#F5F5F5", )
+        shopping_cart_title.pack(padx = 10, pady = (100, 75))
 
+
+
+
+        #Adding a new item frame for every item that is in the shopping list
         for item in shopping_cart_list:
-            item_frame = Frame(shopping_cart_list_frame, bg = 'white')
-            item_frame.pack()
 
-            item_title = Label(item_frame, text = item["name"], font= (global_font, 12), bg = "white") 
-            item_title.grid(row = 0, column = 2)
+            #Creating the item frame
+            item_frame = Frame(shopping_cart_list_frame, bg = 'white', borderwidth= 20, relief='flat')
+            item_frame.pack(pady = 30, fill = 'x', expand = True)
+            item_frame.pack_propagate(0)
 
+            #Item image
+            image = Image.open(item["item"]["image"]).resize((250, 250), Image.Resampling.LANCZOS)
+            image1 = ImageTk.PhotoImage(image)
+            item_image = Label(item_frame, image = image1, borderwidth= 0, bg = 'white')
+            item_image.image = image1
+            item_image.grid(row = 0, column = 0, rowspan = 3)
+
+            #Item title
+            item_title = Label(item_frame, text = item["item"]["title"], font= (global_font, 35), bg = "white", width = 18) 
+            item_title.grid(row = 0, column = 2, padx = (50, 30), pady = (32,0))
+
+            #Item price
+            item_price = Label(item_frame, text = "$" + str(format(item["item"]["price"] * item["quantity"], '.2f')), font = (global_font, 35, 'bold'), bg = 'white', fg = "#F4A72C")
+            item_price.grid(row = 2, column = 2, pady = (0, 20), padx = 30)
+
+            #Adding to the total price
+            global total_price
+            total_price += (item["item"]["price"] * item["quantity"])
+
+            #Subtract 1 dish button
+            subtract_button_image1 = Image.open("Images/-.png").resize((50, 60), Image.Resampling.LANCZOS)
+            subtract_button_image = ImageTk.PhotoImage(subtract_button_image1)
+            subtract_button = Button(item_frame, image = subtract_button_image, borderwidth= 0, bg = 'white', cursor = 'hand2')
+            subtract_button.image = subtract_button_image
+            subtract_button.grid(row = 1, column = 3, padx = (35,20))
+
+            #Item Quantity
+            item_quantity = Label(item_frame, text = item["quantity"], font = (global_font, 35), bg = 'white')
+            item_quantity.grid(row = 1, column = 4, padx = 15)
+
+            #Plus 1 dish button
+            plus_button_image1 = Image.open("Images/+.png").resize((50, 60), Image.Resampling.LANCZOS)
+            plus_button_image = ImageTk.PhotoImage(plus_button_image1)
+            plus_button = Button(item_frame, image = plus_button_image, borderwidth= 0, bg = 'white', cursor = 'hand2')
+            plus_button.image = plus_button_image
+            plus_button.grid(row = 1, column = 5, padx = 20)
+
+            #Remove item button (trash)
+            bin_image1 = Image.open("Images/bin.png").resize((58, 58), Image.Resampling.LANCZOS)
+            bin_image = ImageTk.PhotoImage(bin_image1)
+            remove_button = Button(item_frame, image = bin_image, borderwidth= 0, bg = 'white', cursor = 'hand2')
+
+            #Adding event handler when the bin button is clicked
+            remove_button.bind("<Button-1>", lambda event, arg = item: remove_item(event, arg))
+            remove_button.image = bin_image
+            remove_button.grid(row = 1, column = 6, padx = (50,60))
+
+
+        #Last row widgets' frame
+        final_frame= Frame(shopping_cart_list_frame, bg = "#F5F5F5")
+        final_frame.pack(pady = 35)
+
+        #Total Price
+        global total_price_text
+        total_price_text = Label(final_frame, text = "Total: $" + str(format(total_price, '.2f')), font= (global_font, 35), bg = "#F5F5F5") 
+        total_price_text.grid(row = 0, column = 0)
+
+
+        #Submit  order button
+        submit_image1 = Image.open("Images/submit_order.png").resize((270, 60), Image.Resampling.LANCZOS)
+        submit_image = ImageTk.PhotoImage(submit_image1)
+        submit_order_button = Button(final_frame, image = submit_image, borderwidth= 0, cursor = 'hand2', bg = "#F5F5F5")
+        submit_order_button.image = submit_image
+        submit_order_button.grid(row = 0, column = 1, padx = (80,0))
 
 
 
@@ -136,6 +206,36 @@ class Checkout:
         elif page == 'checkout':
             checkout.Checkout(win)
         self.root.withdraw()
+
+
+
+#Clicking on Bin removes item frame and item from the shopping cart list
+def remove_item(item_widget, item):
+
+    #Confirming user with yes or no
+    confirm = messagebox.askquestion('Remove item', "Are you sure you want to remove this item?")
+
+    #If user presses yes
+    if confirm == "yes":
+        #Removing item's frame
+        item_widget = item_widget.widget
+        remove_item_frame = item_widget.master
+        remove_item_frame.destroy()
+
+
+        #Removing from shopping cart list 
+        shopping_cart_list.remove(item)
+
+        #Updating total price
+        global total_price
+        total_price -= item["item"]["price"] * item["quantity"]
+        total_price_text.config(text = "Total: $" + str(format(total_price, '.2f')))
+    
+    #If the user presses no
+    else:
+        pass
+
+
 
 #Displaying the current page on the tkinter root window
 def page():

@@ -12,9 +12,10 @@ import home
 import mains
 import home
 import sides
-import checkout
+from checkout import *
 import drinks
-from menu_list import drinks_menu_list
+from menu_list import drinks_menu_list, shopping_cart_list
+
 
 #Font that will be used throughout the program
 global_font = 'roboto'
@@ -153,10 +154,10 @@ class Drinks:
             item_price = Label(item_frame, text = "$" + str(format(item["price"], '.2f')), fg = "#C87E07", bg = "white", font = (global_font, 20, "bold"))
             item_price.grid(row = 2, column = 0, pady =(5, 12))
 
-            #View Item
-            drinks_add_to_cart_button_image1 = Image.open("Images/menu items/drinks/drinks_add_to_cart.png").resize((140, 35), Image.Resampling.LANCZOS)
+            #Add to cart button
+            drinks_add_to_cart_button_image1 = Image.open("Images/add_to_cart.png").resize((140, 35), Image.Resampling.LANCZOS)
             drinks_add_to_cart_button_image = ImageTk.PhotoImage(drinks_add_to_cart_button_image1)
-            drinks_add_to_cart = Button(item_frame, image = drinks_add_to_cart_button_image, borderwidth = 0, bg = 'white', cursor = "hand2")
+            drinks_add_to_cart = Button(item_frame, image = drinks_add_to_cart_button_image, borderwidth = 0, bg = 'white', cursor = "hand2", command = lambda item = item: self.add_to_cart(item))
             drinks_add_to_cart.image = drinks_add_to_cart_button_image
             drinks_add_to_cart.grid(row = 2, column = 1, pady = (5,12))
 
@@ -179,6 +180,17 @@ class Drinks:
             checkout.Checkout(win)
         self.root.withdraw()
 
+    #Functiont ran when add to cart button clicked
+    def add_to_cart(self, drink):
+
+        #Message box informing the user that an item has been added
+        messagebox.showinfo(title = "Shopping Cart:", message =   "Added 1x " + drink["title"]+ " added to your shopping cart!")
+
+        #Adding the selected item into the shopping cart list
+        drink_dict = {}
+        drink_dict["item"] = drink
+        drink_dict["quantity"] = 1
+        shopping_cart_list.append(drink_dict)
 
 #Displaying the current page on the tkinter root window
 def page():
