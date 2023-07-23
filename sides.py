@@ -27,7 +27,7 @@ class Sides:
         self.root.state('zoomed')
 
         self.root.title("Wok'n Roll")
-        self.root.config(bg = '#F5F5F5')
+        self.root.config(bg = '#F0F0F0')
 
         #Making minimum available window size
         self.root.minsize(1250,600)
@@ -76,7 +76,7 @@ class Sides:
     #==================================================Adding Scrollbars=============================================
 
         #Home page canvas containing all home page widgets
-        sides_page_canvas = Canvas(self.root, scrollregion=(0,200,1800,1600), width = 200, bg = "#F5F5F5")
+        sides_page_canvas = Canvas(self.root, scrollregion=(0,200,1800,1600), width = 200, bg = "#F0F0F0")
         sides_page_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -106,11 +106,11 @@ class Sides:
         #Sides Menu title logo
         sides_title_image1 = Image.open("Images/menu items/sides/sides_title.png")
         sides_title_image = ImageTk.PhotoImage(sides_title_image1)
-        sides_page_title = Label(sides_page_frame, image = sides_title_image, width = 1600, height = 175, bg ="#F5F5F5")
+        sides_page_title = Label(sides_page_frame, image = sides_title_image, width = 1600, height = 175, bg ="#F0F0F0")
         sides_page_title.image = sides_title_image
         sides_page_title.pack(anchor = 'center')
 
-        menu_list_frame = Frame(sides_page_frame, bg = '#F5F5F5')
+        menu_list_frame = Frame(sides_page_frame, bg = '#F0F0F0')
         menu_list_frame.pack(anchor = 'center')
 
         #Row and column counter for grid manipulation

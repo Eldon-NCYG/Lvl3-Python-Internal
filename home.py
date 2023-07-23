@@ -27,7 +27,7 @@ class Home:
         self.root.state('zoomed')
 
         self.root.title("Wok'n Roll")
-        self.root.config(bg = '#F5F5F5')
+        self.root.config(bg = '#F0F0F0')
 
         #Making minimum available window size
         self.root.minsize(1250,600)

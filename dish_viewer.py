@@ -1,3 +1,4 @@
+#Importing all necessary Moldules
 from tkinter import *
 from tkinter import ttk
 
@@ -28,7 +29,7 @@ class Dish_Viewer:
         self.root.state('zoomed')
 
         self.root.title("Wok'n Roll")
-        self.root.config(bg = '#F5F5F5')
+        self.root.config(bg = '#F0F0F0')
 
         #Making minimum available window size
         self.root.minsize(1250,600)
@@ -76,7 +77,7 @@ class Dish_Viewer:
     #==================================================Dish Viewer Window Setup=============================================
 
         #dish viewer canvas page canvas containing all home page widgets
-        dish_viewer_canvas = Canvas(self.root, scrollregion=(0,0,1700,900), width = 200, bg = "#F5F5F5")
+        dish_viewer_canvas = Canvas(self.root, scrollregion=(0,0,1700,900), width = 200, bg = "#F0F0F0")
         dish_viewer_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -95,7 +96,7 @@ class Dish_Viewer:
         xscrollbar.place(relx = 0, rely = 1, relwidth=1, anchor = 'sw')
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
-        dish_viewer_frame = Frame(dish_viewer_canvas, bg = '#F5F5F5', highlightbackground='#F5F5F5')
+        dish_viewer_frame = Frame(dish_viewer_canvas, bg = '#F0F0F0', highlightbackground='#F0F0F0')
         dish_viewer_canvas.create_window((15,60), window = dish_viewer_frame, anchor = "nw")
 
     #====================================Dish Viewer Window setup end ==============================================================
@@ -104,17 +105,17 @@ class Dish_Viewer:
 #============================Dish Viewer==================================================================
 
         #frame for the dish profile (Using grid to position the widgets involved)
-        dish_profile = Frame(dish_viewer_frame, bg = '#F5F5F5', borderwidth=60, relief='flat', width = 1700)
+        dish_profile = Frame(dish_viewer_frame, bg = '#F0F0F0', borderwidth=60, relief='flat', width = 1700)
         dish_profile.pack(anchor = 'center', padx = (80, 10))
 
         back_button_image1 = Image.open("Images/back.png").resize((50,50), Image.Resampling.LANCZOS)
         back_button_image = ImageTk.PhotoImage(back_button_image1)
-        back_button = Button(dish_viewer_frame, image = back_button_image, bg = '#F5F5F5', borderwidth=0, cursor = 'hand2', command = lambda: self.change_page(previous_page))
+        back_button = Button(dish_viewer_frame, image = back_button_image, bg = '#F0F0F0', borderwidth=0, cursor = 'hand2', command = lambda: self.change_page(previous_page))
         back_button.image = back_button_image
         back_button.place(x = 55, y = 0)
 
         #Large Dish title
-        dish_title = Label(dish_profile, text = dish["title"], bg ='#F5F5F5', font = ("Helvetica", 48))
+        dish_title = Label(dish_profile, text = dish["title"], bg ='#F0F0F0', font = ("Helvetica", 48))
         dish_title.grid(column = 0, row = 0, padx = 40, pady = (25,60), columnspan=2)
 
         #Dish Imgae on the right
@@ -125,19 +126,19 @@ class Dish_Viewer:
         dish_image.grid(row = 0, column = 2, rowspan = 4, columnspan=6, padx = 100)
 
         #Dish price
-        dish_price = Label(dish_profile, text = "$" + str(format(dish["price"], '.2f')), fg ='#C87E07', bg = "#F5F5F5", font = (global_font, 25, "bold"))
+        dish_price = Label(dish_profile, text = "$" + str(format(dish["price"], '.2f')), fg ='#C87E07', bg = "#F0F0F0", font = (global_font, 25, "bold"))
         dish_price.grid(column = 0, row = 1, padx =(0, 150))
 
         #Dish rating + random number of ratings for decorational purposes
-        dish_rating = Label(dish_profile, text = str(dish["rating"]) + "/10 (" + str(random.randint(0,1000)) + " ratings)", bg ='#F5F5F5', font = (global_font, 25))
+        dish_rating = Label(dish_profile, text = str(dish["rating"]) + "/10 (" + str(random.randint(0,1000)) + " ratings)", bg ='#F0F0F0', font = (global_font, 25))
         dish_rating.grid(column = 1, row = 1,padx = (0,20))
 
         #Bold description title
-        dish_description_title = Label(dish_profile, text = "Description:", bg ='#F5F5F5', font = (global_font, 25, 'bold'), anchor = 'w', justify='left')
+        dish_description_title = Label(dish_profile, text = "Description:", bg ='#F0F0F0', font = (global_font, 25, 'bold'), anchor = 'w', justify='left')
         dish_description_title.grid(column = 0, row = 2, columnspan=2, pady = (40, 3), padx = (0, 450))
         
         #Dish description
-        dish_description = Label(dish_profile, text = dish["description"], bg ='#F5F5F5', font = (global_font, 18), anchor = 'w', justify='left')
+        dish_description = Label(dish_profile, text = dish["description"], bg ='#F0F0F0', font = (global_font, 18), anchor = 'w', justify='left')
         dish_description.bind('<Configure>', lambda e: dish_description.config(wraplength = 650 ))
         dish_description.grid(column = 0, row = 3, rowspan=2, columnspan = 2)
 
@@ -146,28 +147,28 @@ class Dish_Viewer:
 
         #Showing how many dishes would be added to the shopping cart
         global dish_counter_number
-        dish_counter_number = Label(dish_profile, text = no_dishes, font = (global_font, 35, "bold"), bg = "#F5F5F5")
+        dish_counter_number = Label(dish_profile, text = no_dishes, font = (global_font, 35, "bold"), bg = "#F0F0F0")
         dish_counter_number.grid(row = 5, column = 3)
 
 
         #Subtract 1 dish button
         subtract_button_image1 = Image.open("Images/-.png").resize((65, 70), Image.Resampling.LANCZOS)
         subtract_button_image = ImageTk.PhotoImage(subtract_button_image1)
-        subtract_button = Button(dish_profile, image = subtract_button_image, borderwidth= 0, bg = '#F5F5F5', cursor = 'hand2', command = lambda: self.dish_counter("-", dish_counter_number))
+        subtract_button = Button(dish_profile, image = subtract_button_image, borderwidth= 0, bg = '#F0F0F0', cursor = 'hand2', command = lambda: self.dish_counter("-", dish_counter_number))
         subtract_button.image = subtract_button_image
         subtract_button.grid(row = 5, column = 2, padx = (85, 0))
 
         #Plus 1 dish button
         plus_button_image1 = Image.open("Images/+.png").resize((65, 70), Image.Resampling.LANCZOS)
         plus_button_image = ImageTk.PhotoImage(plus_button_image1)
-        plus_button = Button(dish_profile, image = plus_button_image, borderwidth= 0, bg = '#F5F5F5', cursor = 'hand2', command = lambda: self.dish_counter("+", dish_counter_number))
+        plus_button = Button(dish_profile, image = plus_button_image, borderwidth= 0, bg = '#F0F0F0', cursor = 'hand2', command = lambda: self.dish_counter("+", dish_counter_number))
         plus_button.image = plus_button_image
         plus_button.grid(row = 5, column = 4, padx = (0, 20))
 
         #Add to cart button
         add_to_cart_image1 = Image.open("Images/add_to_cart.png").resize((250,60), Image.Resampling.LANCZOS)
         add_to_cart_image = ImageTk.PhotoImage(add_to_cart_image1)
-        add_to_cart_button = Button(dish_profile, image = add_to_cart_image, bg = '#F5F5F5', borderwidth=0, cursor = 'hand2', command = lambda dish = dish: self.add_to_cart(no_dishes, dish))
+        add_to_cart_button = Button(dish_profile, image = add_to_cart_image, bg = '#F0F0F0', borderwidth=0, cursor = 'hand2', command = lambda dish = dish: self.add_to_cart(no_dishes, dish))
         add_to_cart_button.image = add_to_cart_image
         add_to_cart_button.grid(column = 5, row = 5, pady = 25, padx = (25,0))
 

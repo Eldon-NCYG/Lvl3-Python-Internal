@@ -29,7 +29,7 @@ class Mains:
         self.root.state('zoomed')
 
         self.root.title("Wok'n Roll")
-        self.root.config(bg = '#F5F5F5')
+        self.root.config(bg = '#F0F0F0')
 
         #Making minimum available window size
         self.root.minsize(1250,600)
@@ -77,7 +77,7 @@ class Mains:
     #==================================================Adding scrollbars=============================================
 
         #Home page canvas containing all home page widgets
-        mains_page_canvas = Canvas(self.root, scrollregion=(0,200,1700,2700), width = 200, bg = "#F5F5F5")
+        mains_page_canvas = Canvas(self.root, scrollregion=(0,200,1700,2700), width = 200, bg = "#F0F0F0")
         mains_page_canvas.pack(fill = 'both', expand = True)
 
         #Adding a Vertical Scrollbar
@@ -96,7 +96,7 @@ class Mains:
         xscrollbar.place(relx = 0, rely = 1, relwidth=1, anchor = 'sw')
 
         #Creating new home_page_frame contianing the scrollbar (weird feature that is required for the code to work)
-        mains_page_frame = Frame(mains_page_canvas, bg = "#F5F5F5")
+        mains_page_frame = Frame(mains_page_canvas, bg = "#F0F0F0")
         mains_page_canvas.create_window((15,200), window = mains_page_frame, anchor = "nw")
 
 
@@ -107,11 +107,11 @@ class Mains:
         #Mains Menu Lists 
         mains_title_image1 = Image.open("Images/menu items/mains/mains_title.png")
         mains_title_image = ImageTk.PhotoImage(mains_title_image1)
-        mains_page_title = Label(mains_page_frame, image = mains_title_image, height = 175, width = 1640, bg ="#F5F5F5")
+        mains_page_title = Label(mains_page_frame, image = mains_title_image, height = 175, width = 1640, bg ="#F0F0F0")
         mains_page_title.image = mains_title_image
         mains_page_title.pack(anchor = 'center')
 
-        menu_list_frame = Frame(mains_page_frame, bg = '#F5F5F5')
+        menu_list_frame = Frame(mains_page_frame, bg = '#F0F0F0')
         menu_list_frame.pack(anchor = 'center')
 
 
