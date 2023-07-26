@@ -16,6 +16,8 @@ import drinks
 from menu_list import shopping_cart_list
 
 
+
+
 #Font that will be used throughout the program
 global_font = 'roboto'
 no_dishes = 1
@@ -218,7 +220,8 @@ class Dish_Viewer:
     #Function ran when add to cart button clicked
     def add_to_cart(self, quantity, dish):
         #Resetting the quantity of dishes to 1
-        no_dishes= 1
+        global no_dishes
+        no_dishes = 1
         global dish_counter_number
         dish_counter_number.config(text = no_dishes)
 
@@ -226,15 +229,22 @@ class Dish_Viewer:
         messagebox.showinfo(title = "Shopping Cart:", message = str(quantity) + "x " + dish["title"]+ " added to your shopping cart!")
 
         #Adding the selected item into the shopping cart list
-        dish_dict = {}
-        dish_dict["item"] = dish
-        dish_dict["quantity"] = quantity
-        shopping_cart_list.append(dish_dict)
+        #If statement to check if dish added is already in the shopping cart list
+        if not any(item.get('item') == dish for item in shopping_cart_list):
+            dish_dict = {}
+            dish_dict["item"] = dish
+            dish_dict["quantity"] = quantity
+            shopping_cart_list.append(dish_dict)
+            print(shopping_cart_list)
+        
+        #If the item isn't in the shopping cart list
+        else:
+            for item in shopping_cart_list:
+                if item.get('item') == dish:
+                    item["quantity"] += quantity
+
         no_dishes = 1
-
         quantity = no_dishes
-
-
 
 
 

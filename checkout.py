@@ -18,9 +18,7 @@ from menu_list import shopping_cart_list
 
 
 global_font = 'roboto'
-total_price = 0
-
-
+total_price = 0 
 
 #Setting up Window Properties
 class Checkout:
@@ -105,6 +103,7 @@ class Checkout:
         checkout_canvas.create_window((15,200), window = checkout_frame, anchor = "nw")
 #================================================================================================================
 
+        global shopping_cart_list_frame
         shopping_cart_list_frame = Frame(checkout_frame, bg = "#F0F0F0",)
         shopping_cart_list_frame.pack(padx = 150)
 
@@ -115,14 +114,17 @@ class Checkout:
 
 
         #Adding a new item frame for every item that is in the shopping list
+
+        global item_frame_list
+        item_frame_list = []
         for item in (shopping_cart_list):
-
-
             #Creating the item frame
+            global item_frame
             item_frame = Frame(shopping_cart_list_frame, bg = 'white', borderwidth= 20, relief='flat')
             item_frame.pack(pady = 30, fill = 'x', expand = True)
             item_frame.pack_propagate(0)
-
+            
+            item_frame_list.append(item_frame)
             #Item image
             image = Image.open(item["item"]["image"]).resize((250, 250), Image.Resampling.LANCZOS)
             image1 = ImageTk.PhotoImage(image)
@@ -132,16 +134,14 @@ class Checkout:
 
             #Item title
             item_title = Label(item_frame, text = item["item"]["title"], font= (global_font, 29), bg = "white", width = 18) 
-            item_title.grid(row = 0, column = 1, padx = (10, 50), pady = (16,0))
+            item_title.grid(row = 0, column = 1, padx = (15, 50), pady = (16,0))
 
             #Item price
             item_price = Label(item_frame, text = "$" + str(format(item["item"]["price"] * item["quantity"], '.2f')), font = (global_font, 29, 'bold'), bg = 'white', fg = "#F4A72C")
             item_price.grid(row = 1, column = 1, padx = 20)
 
-            #Adding to the total price
             global total_price
-            total_price += (item["item"]["price"] * item["quantity"])
-
+            total_price += item["item"]["price"] * item['quantity']
 
             #Item Quantity
             item_quantity_title = Label(item_frame, text = "Quantity:", font = (global_font, 29), bg = 'white')
@@ -204,27 +204,49 @@ class Checkout:
 
     #Submitting Order 
     def submit_order(self):
-        #Confirming user with yes or no
-        confirm = messagebox.askquestion(title = None, message = "Confirm Order?")
+        global total_price
+        if len(shopping_cart_list) > 0:
+            #Confirming user with yes or no
+            confirm = messagebox.askquestion(title = None, message = "Confirm Order?")
 
-        #If user presses yes
-        if confirm == "yes":
-            messagebox.showinfo(title = "Submission", message = "Your order has been submitted!")
+            #If user presses yes
+            if confirm == "yes":
+                order_id = random.randint(100,100000)
+                messagebox.showinfo(title = "Submission", message = "Your order has been submitted!\nYour order ID is: " + str(order_id))
 
-            #Adding order to the list database
-            order_list_db = open('order_list_database.txt', 'a')
-            order_list_db.write("\n\n============================================== Order ID:" + str(random.randint(100,1000000)) + " ==============================================================================\n")
-            for item in shopping_cart_list:
-                order_list_db.write(str(item["quantity"]) + "x " + item["item"]["title"] + ": " + "$" + str(format(item["item"]["price"] * item["quantity"], '.2f')) + "\n")
-            order_list_db.write("Total Price: $" + str(format(total_price, '.2f')))
-            order_list_db.write("\n==========================================================================================================================================\n")
+                
+                
+                #Adding order to the list database
+                order_list_db = open('order_list_database.txt', 'a')
+                
+                #Adding an order id
+                order_list_db.write("\n\n============================================== Order ID:" + str(order_id) + " ==============================================================================\n")
+                
+                #Use for loop to add each item in shopping cart
+                for item in shopping_cart_list:
+                    order_list_db.write(str(item["quantity"]) + "x " + item["item"]["title"] + ": " + "$" + str(format(item["item"]["price"] * item["quantity"], '.2f')) + "\n")
+                order_list_db.write("Total Price: $" + str(format(total_price, '.2f')))
+                order_list_db.write("\n==========================================================================================================================================\n")
+                
+                #Removing all items from shopping cart and resetting total price
+                shopping_cart_list.clear()
+                for item in item_frame_list:
+                    item.destroy()
+
+                total_price = 0
+                total_price_text.config(text = "Total: $" + str(format(total_price, '.2f')))
+                
+            else:
+                pass
+        else:
+            messagebox.showerror(title = None, message = "You don't have anything in your shopping cart!")
 
 
 #Clicking on Bin removes item frame and item from the shopping cart list
 def remove_item(item_widget, item):
-
+    global total_price
     #Confirming user with yes or no
-    confirm = messagebox.askquestion('Remove item', "Are you sure you want to remove this item?")
+    confirm = messagebox.askquestion('Remove item', "Are you sure you want to remove " + str(item["quantity"]) + "x " + item["item"]["title"] + "?")
 
     #If user presses yes
     if confirm == "yes":
@@ -238,7 +260,6 @@ def remove_item(item_widget, item):
         shopping_cart_list.remove(item)
 
         #Updating total price
-        global total_price
         total_price -= item["item"]["price"] * item["quantity"]
         total_price_text.config(text = "Total: $" + str(format(total_price, '.2f')))
     

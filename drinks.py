@@ -14,7 +14,8 @@ import home
 import sides
 from checkout import *
 import drinks
-from menu_list import drinks_menu_list, shopping_cart_list
+from menu_list import *
+
 
 
 #Font that will be used throughout the program
@@ -187,11 +188,19 @@ class Drinks:
         messagebox.showinfo(title = "Shopping Cart:", message =   "Added 1x " + drink["title"]+ " added to your shopping cart!")
 
         #Adding the selected item into the shopping cart list
-        drink_dict = {}
-        drink_dict["item"] = drink
-        drink_dict["quantity"] = 1
-        shopping_cart_list.append(drink_dict)
-
+        #If statement to check if dish added is already in the shopping cart list
+        if not any(item.get('item') == drink for item in shopping_cart_list):
+            dish_dict = {}
+            dish_dict["item"] = drink
+            dish_dict["quantity"] = 1
+            shopping_cart_list.append(dish_dict)
+            print(shopping_cart_list)
+        
+        #If the drink isn't in the shopping cart list
+        else:
+            for item in shopping_cart_list:
+                if item.get('item') == drink:
+                    item["quantity"] += 1
 #Displaying the current page on the tkinter root window
 def page():
     root = Tk()

@@ -1,3 +1,6 @@
+shopping_cart_list = []
+total_price = 0
+
 mains_menu_list = [
     {
     "title": "Egg Fried Rice",
@@ -276,4 +279,3 @@ drinks_menu_list = [
 ]
 
 
-shopping_cart_list = []
