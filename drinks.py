@@ -194,7 +194,6 @@ class Drinks:
             dish_dict["item"] = drink
             dish_dict["quantity"] = 1
             shopping_cart_list.append(dish_dict)
-            print(shopping_cart_list)
         
         #If the drink isn't in the shopping cart list
         else:

@@ -235,7 +235,6 @@ class Dish_Viewer:
             dish_dict["item"] = dish
             dish_dict["quantity"] = quantity
             shopping_cart_list.append(dish_dict)
-            print(shopping_cart_list)
         
         #If the item isn't in the shopping cart list
         else:

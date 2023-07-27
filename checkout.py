@@ -138,7 +138,7 @@ class Checkout:
 
             #Item price
             item_price = Label(item_frame, text = "$" + str(format(item["item"]["price"] * item["quantity"], '.2f')), font = (global_font, 29, 'bold'), bg = 'white', fg = "#F4A72C")
-            item_price.grid(row = 1, column = 1, padx = 20)
+            item_price.grid(row = 1, column = 1, padx = (20,35))
 
             global total_price
             total_price += item["item"]["price"] * item['quantity']
@@ -213,8 +213,6 @@ class Checkout:
             if confirm == "yes":
                 order_id = random.randint(100,100000)
                 messagebox.showinfo(title = "Submission", message = "Your order has been submitted!\nYour order ID is: " + str(order_id))
-
-                
                 
                 #Adding order to the list database
                 order_list_db = open('order_list_database.txt', 'a')
